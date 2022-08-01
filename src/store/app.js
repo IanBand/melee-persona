@@ -3,6 +3,7 @@ import router from "@/router";
 const lsk = "MELEE_PERSONA_QUIZ_NUMBER";
 const NUM_QUIZZES = 3;
 const QUIZ_LENGTH = 20;
+
 const app = {
   state: {
     randomizedQuestions: [],
@@ -32,20 +33,21 @@ const app = {
         type: question[4],
         row: i,
       }))
-        .slice(quizStartIndex, quizStartIndex + QUIZ_LENGTH);
+        .slice(quizStartIndex, quizStartIndex + QUIZ_LENGTH)
+        .sort(() => 0.5 - Math.random()); // lmao
+
 
       console.log('quiz number:', quizNumber);
       console.log(questions);
       console.log(questionSet);
 
       commit("SET_RANDOM_QUESTIONS", questionSet);
-
-
-
     },
     submitValue({ commit, state }, payload) {
 
       commit("ADD_USER_ANSWER", payload);
+
+      console.log(state.userAnswers);
 
       if (state.userAnswers.length == QUIZ_LENGTH) {
         router.push("/results");
@@ -54,13 +56,10 @@ const app = {
   },
   getters: {
     currentQuestionData(state) {
-      if (state.quizNumber == -1) return {};
-
-      return {
-
-
-      }
+      if (state.userAnswers.length == QUIZ_LENGTH) return {};
+      return state.randomizedQuestions[state.userAnswers.length];
     }
+
   }
 };
 
