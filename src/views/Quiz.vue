@@ -53,8 +53,6 @@ export default {
       selectValue(value){
           this.selectedValue = value;
           this.valueHasBeenSelected = true;
-
-          console.log(this.selectedValue);
       },
       trySubmit(){
           if(!this.valueHasBeenSelected) return;

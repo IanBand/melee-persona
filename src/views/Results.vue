@@ -1,8 +1,9 @@
 <template>
-  <div class="container">results:</div>
+  <div class="container">{{results}}</div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "Results",
   components: {
@@ -10,7 +11,15 @@ export default {
   data: () => ({
   }),
   props: {},
-  computed: {},
-  methods: {}
+  computed: {
+      ...mapGetters(["results"]),
+  },
+  methods: {
+    ...mapActions(["initQuiz"]),
+    reset(){
+      this.initQuiz();
+      this.$router.push("/quiz");
+    }
+  }
 };
 </script>
