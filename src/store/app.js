@@ -39,7 +39,7 @@ const app = {
 
 
       console.log('quiz number:', quizNumber);
-      console.log(csv);
+      //console.log(csv);
       console.log(questionSet);
 
       commit("RESET_USER_ANSWERS");
@@ -51,15 +51,15 @@ const app = {
       commit("ADD_USER_ANSWER", answer);
 
       if (state.userAnswers.length == QUIZ_LENGTH) {
-        router.push("/results");
+        router.replace("/results");
       }
     },
     DEBUG_submitAllRandomValues({ commit, state }) {
       while ((state.userAnswers.length != QUIZ_LENGTH)) {
         commit("ADD_USER_ANSWER", Math.random());
       }
-      console.log(state.userAnswers);
-      router.push("/results");
+      //console.log(state.userAnswers);
+      router.replace("/results");
     },
     DEBUG_submitAllAnswersForChar({ commit, state }) {
       const col = csv[0].indexOf("dr_mario");
@@ -68,10 +68,10 @@ const app = {
         const i = state.userAnswers.length;
         const row = state.randomizedQuestions[i].row;
         const charWeight = csv[row][col] === '' ? 0.5 : Number(csv[row][col]); // TODO: placeholder logic until the matrix is filled out
-        console.log(charWeight);
+        //console.log(charWeight);
         commit("ADD_USER_ANSWER", charWeight);
       }
-      router.push("/results");
+      router.replace("/results");
     }
   },
   getters: {
@@ -80,7 +80,7 @@ const app = {
       return state.randomizedQuestions[state.userAnswers.length];
     },
     results(state) {
-      if (state.userAnswers.length != QUIZ_LENGTH) return [];
+      if (state.userAnswers.length != QUIZ_LENGTH) return csv[0].slice(dataColumnStart).map(() => ({ charTitle: '', similarity: 0 })); // could be cleaner. "Always return valid objects" approach is good enough for now, should have checks in Results.vue tbh
 
       const dataColumnStart = 5;
 
@@ -102,7 +102,7 @@ const app = {
         ({ charTitle, distance }) =>
           ({
             charTitle,
-            similarity: 1 - (Math.sqrt(distance) / Math.sqrt(results.length))
+            similarity: ((1 - (Math.sqrt(distance) / Math.sqrt(results.length))) * 100).toPrecision(4),
           })
       );
 
