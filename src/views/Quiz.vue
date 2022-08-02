@@ -26,6 +26,9 @@
       :class="'btn ' + (valueHasBeenSelected ? 'btn-success' : 'btn-secondary')"
       @click="trySubmit"
     >Submit</button>
+
+    <button @click="DEBUG_submitAllRandomValues">debug submit random</button>
+    <button @click="DEBUG_submitAllAnswersForChar">debug submit for char</button>
   </div>
 </template>
 
@@ -49,7 +52,11 @@ export default {
       }
   },
   methods: {
-      ...mapActions(["submitValue"]),
+      ...mapActions([
+        "submitValue", 
+        "DEBUG_submitAllRandomValues",
+        "DEBUG_submitAllAnswersForChar"
+      ]),
       selectValue(value){
           this.selectedValue = value;
           this.valueHasBeenSelected = true;

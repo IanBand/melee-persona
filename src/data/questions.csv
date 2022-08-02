@@ -1,4 +1,4 @@
-Question,positive prompt (1.0),neutral prompt (0.5),negative prompt (0.0),question type,dr mario,mario,luigi,bowser,peach,yoshi,dk,falcon,ganon,falco,fox,ness,ice climbers,wobbling ice climbers,kirby,samus,zelda,sheik,link,ylink,pichu,pikachu,puff,mewtwo,g&w,marth,roy,sopo,giga bowser,male wireframe,fem wireframe,masterhand,crazyhand,koopa,goomba
+Question,positive prompt (1.0),neutral prompt (0.5),negative prompt (0.0),question type,dr_mario,mario,luigi,bowser,peach,yoshi,dk,falcon,ganon,falco,fox,ness,ice_climbers,wobbling_ice_climbers,kirby,samus,zelda,sheik,link,ylink,pichu,pikachu,puff,mewtwo,gw,marth,roy,sopo,giga_bowser,male_wireframe,fem_wireframe,masterhand,crazyhand,koopa,goomba
 Where are you more likely to be found at a local tournament?,On a setup,both equally likely,socializing,binary,0.5,0.5,0.55,0.8,0.6,0.6,0.4,0.4,0.6,0.5,0.5,0.7,0.5,0.4,0.5,0.5,0.5,0.7,0.6,0.6,0.8,0.5,0.3,0.5,0.5,0.5,0.6,0.1,0,0.4,0.6,1,0,0.5,0.55
 How do you approach the game?,slow and steady wins the race,,all out aggression,binary,0.44,0.45,0.55,1,0.6,0.9,0.65,0.05,0.92,0.15,0.2,0.69,0.5,0.7,0.85,1,0.96,0.7,0.78,0.92,0.45,0.4,0.98,0.6,0.4,0.85,0.9,0.5,0.5,0.8,0.5,1,0,0.97,0.25
 do you think white marth looks good?,yes,,no it looks like garbage,binary,,,,,,,,,,,,,,,,,,,,,,,,,,0,,,,,,,,,
@@ -59,3 +59,7 @@ does the daisy skin have a place in this world?,yes,,no,binary,,,,,,,,,,,,,,,,,,
 are handoffs just wobbling with extra steps?,yeah fuck that shit,,no only an idiot would think that,binary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 is your tag just your name?,"yeah, what's wrong with that?",,no ,binary,0,0.1,0,0,0.55,0,0,0.2,0,0.3,0.64,0,0,0,0,0.07,0,0,0,0,0,0,0.5,0,0,0.6,0,0,0,0,0,0,1,0,0.5
 would Armada be top 10 if he came back and competed for 2 months and entered 3 majors in that time?,yes,,no,binary,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+"do you shower, use deodorant, brush your teeth before tournaments?",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+how long have you been playing melee?,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+have you ever smurfed in an online tournament? (do not count tournaments that encourage smurfing),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+how do you feel about melee?,love it,neutral,hate it,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,

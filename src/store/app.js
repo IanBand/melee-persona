@@ -46,15 +46,32 @@ const app = {
       commit("SET_RANDOM_QUESTIONS", questionSet);
 
     },
-    submitValue({ commit, state }, payload) {
+    submitValue({ commit, state }, answer) {
 
-      commit("ADD_USER_ANSWER", payload);
-
-      console.log(state.userAnswers);
+      commit("ADD_USER_ANSWER", answer);
 
       if (state.userAnswers.length == QUIZ_LENGTH) {
         router.push("/results");
       }
+    },
+    DEBUG_submitAllRandomValues({ commit, state }) {
+      while ((state.userAnswers.length != QUIZ_LENGTH)) {
+        commit("ADD_USER_ANSWER", Math.random());
+      }
+      console.log(state.userAnswers);
+      router.push("/results");
+    },
+    DEBUG_submitAllAnswersForChar({ commit, state }) {
+      const col = csv[0].indexOf("dr_mario");
+
+      while ((state.userAnswers.length != QUIZ_LENGTH)) {
+        const i = state.userAnswers.length;
+        const row = state.randomizedQuestions[i].row;
+        const charWeight = csv[row][col] === '' ? 0.5 : Number(csv[row][col]); // TODO: placeholder logic until the matrix is filled out
+        console.log(charWeight);
+        commit("ADD_USER_ANSWER", charWeight);
+      }
+      router.push("/results");
     }
   },
   getters: {
@@ -68,31 +85,30 @@ const app = {
       const dataColumnStart = 5;
 
       // reassociate random answers with csv rows (this wants to be a zip lol)
-      const sortedUserAnswers = state.userAnswers.map((answer, i) => ({ answer, row: state.randomizedQuestions[i].row }));
-      sortedUserAnswers.sort((a, b) => a.row - b.row);
+      const associatedUserAnswers = state.userAnswers.map((answer, i) => ({ answer, row: state.randomizedQuestions[i].row }));
 
-      console.log(sortedUserAnswers);
-      return csv[0].slice(dataColumnStart);
+      // prep results object
+      const results = csv[0].slice(dataColumnStart).map((charTitle, i) => ({ charTitle, distance: 0, col: dataColumnStart + i }));
 
+      // calc distance squared
+      associatedUserAnswers.forEach(({ answer, row }) =>
+        results.forEach(result => {
+          const charWeight = csv[row][result.col] === '' ? 0.5 : Number(csv[row][result.col]); // TODO: placeholder logic until the matrix is filled out
+          return result.distance += ((answer - charWeight) ** 2);
+        }));
 
-      /*
-      return csv[0].slice(dataColumnStart).map((charTitle, i) => {
+      // take sqrt & normalize
+      const processedResults = results.map(
+        ({ charTitle, distance }) =>
+          ({
+            charTitle,
+            similarity: 1 - (Math.sqrt(distance) / Math.sqrt(results.length))
+          })
+      );
 
-        const col = i + dataColumnStart;
-        let distance = 0;
+      processedResults.sort((a, b) => b.similarity - a.similarity);
 
-
-        // slicing 1 and adding 1 to i because we are skipping the first row of the csv
-        csv.slice(1).forEach(question => {
-          distance += (question[col] - state.userAnswers[i + 1].row) ** 2;
-        });
-
-        return {
-          charTitle,
-          distance: Math.sqrt()
-        };
-      });
-      */
+      return processedResults;
     }
 
   }
