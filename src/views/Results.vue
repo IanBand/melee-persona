@@ -74,3 +74,18 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+  }
+
+</style>

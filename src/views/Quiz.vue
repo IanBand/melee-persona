@@ -1,7 +1,7 @@
 <template>
   <div class="container">
-    <div>{{currentQuestionData.questionText}}</div>
-    <div v-if="currentQuestionData.type == 'binary'">
+    <div class="question_text">{{currentQuestionData.questionText}}</div>
+    <div class="buttons" v-if="currentQuestionData.type == 'binary'">
       <button
         :class="'btn ' + (selectedValue == 1 ? 'btn-primary' : 'btn-outline-primary')"
         @click="() => selectValue(1.0)"
@@ -70,3 +70,21 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+
+  .container {
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .question_text {
+    color: white;
+  }
+
+</style>
