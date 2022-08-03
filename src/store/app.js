@@ -80,7 +80,7 @@ const app = {
       return state.randomizedQuestions[state.userAnswers.length];
     },
     results(state) {
-      if (state.userAnswers.length != QUIZ_LENGTH) return csv[0].slice(dataColumnStart).map(() => ({ charTitle: '', similarity: 0 })); // could be cleaner. "Always return valid objects" approach is good enough for now, should have checks in Results.vue tbh
+      if (state.userAnswers.length != QUIZ_LENGTH) return csv[0].slice(dataColumnStart).map(() => ({ characterKey: '', similarity: 0 })); // could be cleaner. "Always return valid objects" approach is good enough for now, should have checks in Results.vue tbh
 
       const dataColumnStart = 5;
 
@@ -88,7 +88,7 @@ const app = {
       const associatedUserAnswers = state.userAnswers.map((answer, i) => ({ answer, row: state.randomizedQuestions[i].row }));
 
       // prep results object
-      const results = csv[0].slice(dataColumnStart).map((charTitle, i) => ({ charTitle, distance: 0, col: dataColumnStart + i }));
+      const results = csv[0].slice(dataColumnStart).map((characterKey, i) => ({ characterKey, distance: 0, col: dataColumnStart + i }));
 
       // calc distance squared
       associatedUserAnswers.forEach(({ answer, row }) =>
@@ -99,9 +99,9 @@ const app = {
 
       // take sqrt & normalize
       const processedResults = results.map(
-        ({ charTitle, distance }) =>
+        ({ characterKey, distance }) =>
           ({
-            charTitle,
+            characterKey,
             similarity: ((1 - (Math.sqrt(distance) / Math.sqrt(results.length))) * 100).toPrecision(4),
           })
       );

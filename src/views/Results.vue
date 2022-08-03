@@ -1,10 +1,10 @@
 <template>
   <div class="container">
-    <div>Your melee persona is {{results[0].charTitle}}! they're a {{results[0].similarity}}% match!</div>
+    <div>Your melee persona is {{this.metadata[results[0].characterKey].title}}! they're a {{results[0].similarity}}% match!</div>
     <br />
-    <div>{{results[1].charTitle}} was a {{results[1].similarity}}% match</div>
+    <div>{{this.metadata[results[1].characterKey].title}} was a {{results[1].similarity}}% match</div>
     <br />
-    <div>{{results[2].charTitle}} was a {{results[2].similarity}}% match</div>
+    <div>{{this.metadata[results[2].characterKey].title}} was a {{results[2].similarity}}% match</div>
     <br />
     <button @click="copyResults">
       Copy my results to my keyboard
@@ -47,6 +47,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex';
+import metadata from '@/data/characterMetadata.js';
 export default {
   name: "Results",
   components: {
@@ -57,6 +58,7 @@ export default {
   props: {},
   computed: {
       ...mapGetters(["results"]),
+      metadata(){return metadata;},
   },
   methods: {
     ...mapActions(["initQuiz"]),
@@ -67,7 +69,7 @@ export default {
     copyResults(){
       this.copied = true;
       navigator.clipboard.writeText(
-        `My Melee Persona is ${this.results[0].charTitle} @ ${this.results[0].similarity}%
+        `My Melee Persona is ${this.metadata[this.results[0].characterKey].title} @ ${this.results[0].similarity}%
         Find out your Melee Persona: ${'[link-to-melee-persona]'}`
       );
     }
